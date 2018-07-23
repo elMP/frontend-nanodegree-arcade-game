@@ -17,3 +17,13 @@ h1 {
     font-weight: bold;
     font-size: 30px;
 }
+
+#startgame {
+    font-family: inherit;
+    font-size: inherit;
+    background: gray;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    color: yellow;
+    padding: 10px;
+    margin-top: 5px;
+}
