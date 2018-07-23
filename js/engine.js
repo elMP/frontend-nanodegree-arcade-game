@@ -79,9 +79,20 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
+    function checkCollisions() {
+        //console.log(enemy.y, ' ', player.y)
+        allEnemies.forEach(function(enemy) {
+            if ((Math.floor((enemy.x + 45)/ 83) == player.x && enemy.y == 65 + (player.y - 1) * 83) ||
+            (Math.floor((enemy.x - 45)/ 83) == player.x && enemy.y == 65 + (player.y - 1) * 83))
+            {
+                player.x = 2;
+                player.y = 5;
+            }
+        });
+    }
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
