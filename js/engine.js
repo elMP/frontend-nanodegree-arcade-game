@@ -22,15 +22,23 @@ var doc = document,
     win = window,
     canvas = doc.createElement('canvas'),
     ctx = canvas.getContext('2d'),
-    lastTime;
+    lastTime,
+    gamestart = false;
 
     canvas.width = 505;
     canvas.height = 606;
-
+    canvas.id = "canvas";
+    canvas.style = "display: none";
+    doc.body.appendChild(canvas);
 const startGame = document.getElementById('startgame');
 startGame.onclick = function() {
+    gamestart = true;
+    gameStart();
+    console.log(gamestart, player.y);
     startGame.style = "display: none";
-    doc.body.appendChild(canvas);
+    const canvas = document.getElementById('canvas');
+    canvas.style = "display: block";
+    
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -163,12 +171,14 @@ startGame.onclick = function() {
     function renderEntities() {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
-         */
-        allEnemies.forEach(function(enemy) {
-            enemy.render();
-        });
+         */        
+        if (gamestart) {
+            allEnemies.forEach(function(enemy) {
+                enemy.render();
+            });
 
-        player.render();
+            player.render();
+        }
     }
 
     /* This function does nothing but it could have been a good place to

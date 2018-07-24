@@ -18,6 +18,11 @@ h1 {
     font-size: 30px;
 }
 
+#win {
+    display: none;
+    font-size: 72px;
+    color: red;
+}
 #startgame {
     font-family: inherit;
     font-size: inherit;
@@ -25,5 +30,10 @@ h1 {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     color: yellow;
     padding: 10px;
+    margin: auto;
     margin-top: 5px;
+}
+
+#canvas {
+    margin: auto;
 }
