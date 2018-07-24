@@ -9,7 +9,7 @@ It's a arcade game clone for Udacity Nanodegree (project 4).
 
 ## Play the game
 
-  To start game press the button ` Start new game `
-  Use arrow keys to move.
-  You need to reach water to win.
+  To start game click the button ` Start new game `  
+  Use arrow keys to move.  
+  You need to reach water to win.  
   Avoid bugs - they teleporte you to initial position.
