@@ -8,7 +8,7 @@ var Enemy = function(initialY) {
     this.sprite = 'images/enemy-bug.png';
     this.x = -90;
     this.y = initialY;
-    this.speed = Math.floor(Math.random() * 100) + 20;
+    this.getSpeed();
 };
 
 // Update the enemy's position, required method for game
@@ -17,14 +17,20 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    //if enemy don't reach a right wall - move it to right
     if (this.x < 505)
         this.x = this.x + this.speed * dt;
+    //if enemy reached a right wall - move it to begining and change its speed
     else {
         this.x = -90;
-        this.speed = Math.floor(Math.random() * 100) + 10;
+        this.getSpeed();
     }
-    //console.log(this.y);
 };
+
+//get random speed for enemies
+Enemy.prototype.getSpeed = function() {
+    this.speed = Math.floor(Math.random() * 100) + 20;
+}
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -39,14 +45,11 @@ var Player = function() {
     // a helper we've provided to easily load images
     this.sprite = 'images/char-boy.png';
     //initial position for the hero
-    this.x = 2;
-    this.y = 5;
+    this.reset();
 };
 
 Player.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
+    //if player reached water - he won!
     if (this.y == 0)
         gameover();
 };
@@ -55,7 +58,14 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 83 - 10);
 };
 
+//player go to initial position
+Player.prototype.reset = function() {
+    this.x = 2;
+    this.y = 5;
+}
+
 Player.prototype.handleInput = function(key) {
+    //player can't move outside the canvas
     switch (key) {
         case 'up':
             if (this.y != 0)
@@ -78,16 +88,16 @@ Player.prototype.handleInput = function(key) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var Game = function() {
-
-}
-
 var allEnemies, player;
 
+//what to do then game is starting
 function gameStart() {
+    const startGame = document.getElementById('startgame');
+    startGame.style = "display: none";
     const win = document.getElementById('win');
     win.style = "display: none;"
     allEnemies = [];
+    //one enemy for each row besides first and last row
     enemyYPositions = [65, 148, 231, 314];
     enemyYPositions.forEach(element => {
         let enemy = new Enemy(element);
@@ -110,8 +120,10 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+//what to do then game is over
 function gameover() {
     gamestart = false;
+    const startGame = document.getElementById('startgame');
     startGame.style = "display: block";
     const canvas = document.getElementById('canvas');
     canvas.style = "display: none";

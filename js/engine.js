@@ -30,15 +30,15 @@ var doc = document,
     canvas.id = "canvas";
     canvas.style = "display: none";
     doc.body.appendChild(canvas);
-const startGame = document.getElementById('startgame');
+    const startGame = document.getElementById('startgame');
+
 startGame.onclick = function() {
     gamestart = true;
+    //create game's objects
     gameStart();
-    console.log(gamestart, player.y);
-    startGame.style = "display: none";
+
     const canvas = document.getElementById('canvas');
-    canvas.style = "display: block";
-    
+    canvas.style = "display: block";    
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -95,13 +95,12 @@ startGame.onclick = function() {
     }
 
     function checkCollisions() {
-        //console.log(enemy.y, ' ', player.y)
         allEnemies.forEach(function(enemy) {
+            //if player and any bug are in one cell - it's a collision
             if ((Math.floor((enemy.x + 45)/ 83) == player.x && enemy.y == 65 + (player.y - 1) * 83) ||
-            (Math.floor((enemy.x - 45)/ 83) == player.x && enemy.y == 65 + (player.y - 1) * 83))
+            (Math.floor((enemy.x - 30)/ 83) == player.x && enemy.y == 65 + (player.y - 1) * 83))
             {
-                player.x = 2;
-                player.y = 5;
+                player.reset();
             }
         });
     }
